@@ -2,7 +2,7 @@ window.GUIDE = window.GUIDE || {};
 
 GUIDE.ui = {
   ko: {
-    title: "비상장사 투자 가이드 (Investment Pod)",
+    title: "전략 투자 가이드",
     sub: "증권사 CVC · 초기기업 투자 · 국내/해외 딜 공용",
     asof: "기준일 2026-11-17",
     filterAll: "전체", filterKr: "국내 딜", filterOs: "해외 딜", filterCommon: "공통",
@@ -18,7 +18,7 @@ GUIDE.ui = {
     legend: "필수: 빠지면 투자자 보호에 공백이 생기는 조항 · 권장: 딜 규모·협상력에 따라 반드시 요청 · 선택: 특정 구조에서만 사용",
     parties: "당사자", law: "준거법·양식", when: "사용 시점",
     sevHigh: "중대", sevMed: "확인",
-    action: "조치",
+    action: "Action",
     closing: "클로징·규제 체크리스트",
     closingLead: "계약서는 아니지만 빠지면 클로징이나 송금이 막히는 항목입니다.",
     noResult: "검색 결과가 없습니다. 다른 용어로 찾아보세요.",

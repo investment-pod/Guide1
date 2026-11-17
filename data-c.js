@@ -128,7 +128,7 @@ GUIDE.contracts.push(
       flag: { ko: "외국인 투자자 지위 미공개", en: "Foreign status not disclosed" } },
     { l: "R", ko: "클로징 조건", en: "Conditions to Closing",
       def: { ko: "투자자 납입 조건.", en: "Conditions to funding." },
-      must: { ko: "진술 정확성, COI 제출, IRA·Voting·ROFR 동시 체결, 임원 확인서, 비서 증명서, 규제 승인.", en: "Accurate reps, filed COI, ancillary agreements, officer and secretary certificates, regulatory approvals." },
+      must: { ko: "진술 정확성, COI 제출, IRA·Voting·ROFR 동시 체결, 임원 확인서, Secretary's Certificate, 규제 승인.", en: "Accurate reps, filed COI, ancillary agreements, officer and secretary certificates, regulatory approvals." },
       flag: { ko: "COI 제출 전 송금", en: "Wiring before the COI is filed" } },
     { l: "O", ko: "CFIUS 조항", en: "CFIUS Provisions",
       def: { ko: "외국인 투자자의 접근권 제한.", en: "Limits on foreign investors' access." },
@@ -345,7 +345,7 @@ GUIDE.closing = [
   { cat: { ko: "회계", en: "Accounting" }, deal: { ko: "공통", en: "All" }, item: { ko: "금융자산 분류·공정가치 평가 방법 확정", en: "Classification and fair-value method" }, who: { ko: "회계·리스크", en: "Accounting, Risk" }, note: { ko: "K-IFRS 1109, RCPS·SAFE·CB 분류, 순자본비율 영향", en: "K-IFRS 1109, instrument classification, NCR" } },
   { cat: { ko: "클로징", en: "Closing" }, deal: { ko: "공통", en: "All" }, item: { ko: "이사회·주주총회 의사록, 정관 변경", en: "Board and shareholder resolutions, charter" }, who: { ko: "회사·법무", en: "Company, Legal" }, note: { ko: "국내: 변경등기 / 미국: COI 주 정부 제출 확인", en: "KR: registration / US: filed COI" } },
   { cat: { ko: "클로징", en: "Closing" }, deal: { ko: "공통", en: "All" }, item: { ko: "대표이사·임원 확인서", en: "Officer's and compliance certificate" }, who: { ko: "회사", en: "Company" }, note: { ko: "진술·보장의 클로징일 진실성, 선행조건 충족", en: "Reps true at closing; conditions met" } },
-  { cat: { ko: "클로징", en: "Closing" }, deal: { ko: "해외", en: "Overseas" }, item: { ko: "존속증명서, 비서 증명서, 법률의견서", en: "Good standing, secretary's certificate, legal opinion" }, who: { ko: "회사·현지 자문", en: "Company, local counsel" }, note: { ko: "법률의견서는 초기 라운드에서 생략되기도 함", en: "Opinion often skipped in early rounds" } },
+  { cat: { ko: "클로징", en: "Closing" }, deal: { ko: "해외", en: "Overseas" }, item: { ko: "존속증명서, Secretary's Certificate, 법률의견서", en: "Good standing, secretary's certificate, legal opinion" }, who: { ko: "회사·현지 자문", en: "Company, local counsel" }, note: { ko: "법률의견서는 초기 라운드에서 생략되기도 함", en: "Opinion often skipped in early rounds" } },
   { cat: { ko: "클로징", en: "Closing" }, deal: { ko: "공통", en: "All" }, item: { ko: "주권·주주명부·자본구조표", en: "Share certificate, register, cap table" }, who: { ko: "회사", en: "Company" }, note: { ko: "미국은 Carta 등 전자 주권, 케이맨은 주주명부 인증 사본", en: "US e-certificates; Cayman certified register" } },
   { cat: { ko: "클로징", en: "Closing" }, deal: { ko: "공통", en: "All" }, item: { ko: "송금 증빙과 계좌 재확인", en: "Wire confirmation and account verification" }, who: { ko: "자금·투자지원", en: "Treasury, Ops" }, note: { ko: "계좌 변경 사기에 대비해 알고 있는 번호로 전화 재확인", en: "Call back on a known number to prevent wire fraud" } }
 ];

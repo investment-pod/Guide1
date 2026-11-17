@@ -85,7 +85,7 @@ window.GUIDE = window.GUIDE || {};
     var today = new Date(); var ds = today.getFullYear() + "-" + String(today.getMonth() + 1).padStart(2, "0") + "-" + String(today.getDate()).padStart(2, "0");
     kids.push(new Paragraph({ pageBreakBefore: true, children: [] }));
     kids.push(new Paragraph({ spacing: { after: 120 }, children: [new TextRun({ text: lang === "ko" ? "부록. 조항별 검토 체크리스트" : "Appendix. Clause Review Checklist", bold: true, size: 28, font: font })] }));
-    kids.push(p((lang === "ko" ? "비상장사 투자 가이드 (Investment Pod) 기준 · 생성일 " : "From the Investment Pod guide · generated ") + ds + (lang === "ko" ? ". 페이지에서 수정한 내용이 반영되어 있습니다." : ". Reflects edits made on the page. Notes are in Korean."), { color: "5A6577", size: 18, after: 200 }));
+    kids.push(p((lang === "ko" ? "전략 투자 가이드 기준 · 생성일 " : "From the Investment Pod guide · generated ") + ds + (lang === "ko" ? ". 페이지에서 수정한 내용이 반영되어 있습니다." : ". Reflects edits made on the page. Notes are in Korean."), { color: "5A6577", size: 18, after: 200 }));
     var lab = function (txt) { return new TextRun({ text: txt + "  ", bold: true, size: 19, font: font, color: "5A6577" }); };
     var line = function (label, text, color) {
       if (!text) return;

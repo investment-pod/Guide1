@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>비상장사 투자 가이드 (Investment Pod)</title>
+<title>전략 투자 가이드</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
@@ -62,7 +62,7 @@ button, input { font: inherit; color: inherit; }
 .seg button { border: 0; background: transparent; padding: 6px 11px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted); }
 .seg button + button { border-left: 1px solid var(--line); }
 .seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
-.search { flex: 1 1 240px; min-width: 200px; }
+.search { flex: 0 1 320px; min-width: 200px; }
 .search { position: relative; }
 .search-row { display: flex; align-items: center; gap: 6px; }
 .search-row input { flex: 1 1 auto; min-width: 0; }
@@ -98,6 +98,8 @@ mark.cur { outline: 2px solid var(--accent); background: color-mix(in srgb, var(
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo .lg-light { display: none; } :root:not([data-theme="light"]) .logo .lg-dark { display: block; } }
 .logo .ph { font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: .02em; color: var(--accent); border: 1.5px dashed var(--accent); border-radius: 6px; padding: 3px 8px; }
 .brand { flex-direction: row !important; align-items: center; }
+.brand-txt { display: flex; flex-direction: column; min-width: 0; }
+.brand .brand-sub { margin: 1px 0 0; font-size: 11.5px; color: var(--muted); letter-spacing: .01em; line-height: 1.3; }
 .to-top { cursor: pointer; }
 .money-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
 .money { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
@@ -254,6 +256,7 @@ footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; 
   .bar-in { padding: 8px 14px; gap: 8px; }
   .brand { flex: 1 1 100%; }
   .brand h1 { font-size: 16px; line-height: 1.3; }
+  .brand .brand-sub { font-size: 10.5px; }
   .logo img { height: 24px; }
   .logo { margin-right: 12px; padding-right: 12px; }
   .controls { flex: 0 0 auto; }
@@ -288,7 +291,7 @@ footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; 
 <body>
 <header class="bar">
   <div class="bar-in">
-    <div class="brand"><a href="#top" class="logo" id="logo" title="맨 위로 이동" aria-label="맨 위로 이동"></a><h1 id="t-title" class="to-top" title="맨 위로 이동"></h1></div>
+    <div class="brand"><a href="#top" class="logo" id="logo" title="맨 위로 이동" aria-label="맨 위로 이동"></a><div class="brand-txt"><h1 id="t-title" class="to-top" title="맨 위로 이동"></h1><p id="t-sub" class="brand-sub"></p></div></div>
     <div class="controls"><button type="button" class="ghost" id="toggle-compact"></button></div>
     <div class="search" id="search-box"><div class="search-row"><input id="q" type="search" autocomplete="off" aria-label="검색" aria-controls="sr-panel"><span class="sr-nav" id="sr-nav" hidden><span id="sr-count"></span><button type="button" id="sr-prev" aria-label="이전 결과">▲</button><button type="button" id="sr-next" aria-label="다음 결과">▼</button></span></div>
       <div class="sr-panel" id="sr-panel" role="listbox" hidden></div></div>
@@ -362,7 +365,7 @@ footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; 
       addModel: "모델 문구를 입력하세요", ph: "내용을 입력하세요", newName: "새 조항", levelHint: "등급을 눌러 바꾸기",
       dbNote: "수정 내용은 이 페이지의 공유 저장소에 기록되며, 페이지 소유자와 편집자(Editor) 권한을 가진 사람만 고칠 수 있습니다.",
       grp: { doc: "계약서", common: "공통", kr: "한국", us: "미국", local: "현지법", common2: "공통" },
-      flow: "계약서 흐름과 예시", flowLead: "6개 문서가 딜 단계별로 언제 쓰이는지와 구속력 범위입니다. 버튼을 누르면 예시 계약서(.docx)를 내려받습니다. 파일은 누를 때마다 현재 페이지 내용으로 새로 만들어져, 조항명 수정과 부록 체크리스트(정의·Red flag·관할별 유의사항 등)에 편집 내용이 반영됩니다. 한글본은 한국법, 영문본은 해외 딜(싱가포르법 기본, 관할별 주석 포함) 기준입니다.",
+      flow: "계약 흐름과 예시", flowLead: "6개 문서가 딜 단계별로 언제 쓰이는지와 구속력 범위입니다. 버튼을 누르면 예시 계약서(.docx)를 내려받습니다. 파일은 누를 때마다 현재 페이지 내용으로 새로 만들어져, 조항명 수정과 부록 체크리스트(정의·Red flag·관할별 유의사항 등)에 편집 내용이 반영됩니다. 한글본은 한국법, 영문본은 해외 딜(싱가포르법 기본, 관할별 주석 포함) 기준입니다.",
       colStage: "단계", colBind: "구속력", colWho2: "통상 초안 작성", colFile: "예시 양식", dlKo: "한글 .docx", dlEn: "English .docx", dlFail: "다운로드할 수 없습니다. 파일을 불러오지 못했거나 이 화면에서 다운로드가 막혀 있습니다.", dlDeclined: "다운로드를 취소했습니다.", jn: "관할별 유의사항" },
     en: { jurAll: "All", jur: "Jurisdiction comparison", jurLead: "Entity forms, standard documents and regulatory differences across the five markets. Clause-level notes by jurisdiction sit under each clause.",
       refs: "Statutes and sources", refsLead: "Footnote numbers in the text link here. Items marked commentary are law-firm or press explanations, not primary text.",
@@ -455,6 +458,7 @@ footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; 
     document.title = TV("title", U("title"));
     var set = function (id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; };
     set("t-title", T("title", U("title")));
+    set("t-sub", T("sub", "한화투자증권 미래전략실 Investment Pod 26.11.18"));
     set("t-assume", T("assume", U("assumptions")));
     set("t-assume-lead", T("assume-lead", U("assumptionsLead")));
     set("t-jur", T("jur", V("jur")));
@@ -821,32 +825,41 @@ footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; 
 
   function toTop(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
   function moneyBurst(ev) {
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     var r = document.getElementById("logo").getBoundingClientRect();
-    var x0 = ev && ev.clientX ? ev.clientX : r.left + r.width / 2, y0 = ev && ev.clientY ? ev.clientY : r.top + r.height / 2;
+    var x0 = r.left + r.width / 2, y0 = r.top + r.height / 2;
+    var old = document.querySelector(".money-layer"); if (old) old.parentNode.removeChild(old);
     var layer = document.createElement("div"); layer.className = "money-layer"; document.body.appendChild(layer);
-    var W = window.innerWidth, H = window.innerHeight, n = W < 600 ? 26 : 42, left = n;
-    for (var i = 0; i < n; i++) {
-      var el = document.createElement("div"), kind = Math.random();
-      if (kind < 0.62) { el.className = "money bill" + (Math.random() < 0.3 ? " b2" : ""); el.textContent = "₩"; }
-      else { el.className = "money coin"; el.textContent = "₩"; }
-      layer.appendChild(el);
-      var ang = (-Math.PI / 2) + (Math.random() - 0.35) * 1.9;          // mostly up and to the right
-      var sp = 160 + Math.random() * 260;
-      var vx = Math.cos(ang) * sp, peakY = y0 + Math.sin(ang) * sp;
-      var endX = x0 + vx * 1.8 + (Math.random() - 0.5) * 220, endY = H + 60;
-      var rot = (Math.random() - 0.5) * 1080, dur = 1600 + Math.random() * 1300;
-      var sway = (Math.random() - 0.5) * 120;
-      var k = [
-        { transform: "translate(" + x0 + "px," + y0 + "px) rotate(0deg) scale(.4)", opacity: 0 },
-        { transform: "translate(" + (x0 + vx * 0.6) + "px," + peakY + "px) rotate(" + rot * 0.3 + "deg) scale(1)", opacity: 1, offset: 0.22 },
-        { transform: "translate(" + (x0 + vx * 1.2 + sway) + "px," + (peakY + (endY - peakY) * 0.45) + "px) rotate(" + rot * 0.65 + "deg) rotateX(60deg)", opacity: 1, offset: 0.6 },
-        { transform: "translate(" + endX + "px," + endY + "px) rotate(" + rot + "deg) rotateX(0deg)", opacity: 0.9 }
-      ];
-      var a = el.animate(k, { duration: dur, delay: Math.random() * 180, easing: "cubic-bezier(.25,.6,.45,1)", fill: "forwards" });
-      a.onfinish = function () { if (--left <= 0 && layer.parentNode) layer.parentNode.removeChild(layer); };
+    var W = window.innerWidth, H = window.innerHeight, mobile = W < 700;
+    var scale = mobile ? 1.15 : 1.35;
+    function make() {
+      var el = document.createElement("div");
+      if (Math.random() < 0.65) el.className = "money bill" + (Math.random() < 0.3 ? " b2" : ""); else el.className = "money coin";
+      el.textContent = "₩"; layer.appendChild(el); return el;
     }
-    setTimeout(function () { if (layer.parentNode) layer.parentNode.removeChild(layer); }, 4000);
+    var anims = [];
+    /* 1) burst from the logo, fanning out over the whole screen */
+    var nb = mobile ? 30 : 46;
+    for (var i = 0; i < nb; i++) {
+      var el = make(), tx = Math.random() * W, peak = Math.random() * H * 0.45;
+      var midX = x0 + (tx - x0) * 0.55, rot = (Math.random() - 0.5) * 1440, dur = 1900 + Math.random() * 1200, s0 = scale * (0.8 + Math.random() * 0.5);
+      anims.push(el.animate([
+        { transform: "translate(" + x0 + "px," + y0 + "px) rotate(0deg) scale(.3)", opacity: 0 },
+        { transform: "translate(" + midX + "px," + peak + "px) rotate(" + rot * 0.3 + "deg) scale(" + s0 + ")", opacity: 1, offset: 0.25 },
+        { transform: "translate(" + (tx + (Math.random() - 0.5) * 80) + "px," + (H * 0.6) + "px) rotate(" + rot * 0.7 + "deg) rotateX(65deg) scale(" + s0 + ")", opacity: 1, offset: 0.65 },
+        { transform: "translate(" + (tx + (Math.random() - 0.5) * 120) + "px," + (H + 60) + "px) rotate(" + rot + "deg) rotateX(0deg) scale(" + s0 + ")", opacity: 0.9 }
+      ], { duration: dur, delay: Math.random() * 150, easing: "cubic-bezier(.25,.6,.45,1)", fill: "forwards" }));
+    }
+    /* 2) money rain over the full width */
+    var nr = Math.round((mobile ? 34 : 70) * Math.min(1.6, Math.max(0.8, H / 800)));
+    for (var k = 0; k < nr; k++) {
+      var el2 = make(), x = Math.random() * W, sw = (Math.random() - 0.5) * 160, rot2 = (Math.random() - 0.5) * 900, s1 = scale * (0.75 + Math.random() * 0.55);
+      anims.push(el2.animate([
+        { transform: "translate(" + x + "px,-60px) rotate(0deg) scale(" + s1 + ")", opacity: 1 },
+        { transform: "translate(" + (x + sw) + "px," + (H * 0.5) + "px) rotate(" + rot2 * 0.5 + "deg) rotateX(70deg) scale(" + s1 + ")", opacity: 1, offset: 0.5 },
+        { transform: "translate(" + (x - sw * 0.5) + "px," + (H + 60) + "px) rotate(" + rot2 + "deg) rotateX(0deg) scale(" + s1 + ")", opacity: 0.9 }
+      ], { duration: 2200 + Math.random() * 1600, delay: 250 + Math.random() * 1100, easing: "cubic-bezier(.35,.1,.6,1)", fill: "forwards" }));
+    }
+    setTimeout(function () { if (layer.parentNode) layer.parentNode.removeChild(layer); }, 5600);
   }
   document.getElementById("logo").addEventListener("click", function (e) { toTop(e); moneyBurst(e); });
   document.getElementById("t-title").addEventListener("click", function (e) { if (!state.editing) toTop(e); });
@@ -925,7 +938,7 @@ footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; 
     if (m.closest(".nm")) return "조항명";
     if (m.closest(".term")) return "영문 조항명";
     if (m.closest(".facts")) { var dd = m.closest(".facts > div"); var dt = dd && dd.querySelector("dt"); return dt ? dt.textContent : ""; }
-    if (m.closest(".act")) return "조치";
+    if (m.closest(".act")) return "Action";
     return "";
   }
   function locate(m) {
