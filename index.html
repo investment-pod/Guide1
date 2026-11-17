@@ -1,0 +1,1049 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>비상장사 투자 가이드 (Investment Pod)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@400;500;600;700&family=IBM+Plex+Serif:wght@500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+/* Layout: sticky control bar, left contents rail, contract sections with clause rows (term | analysis), footnotes at the end. */
+:root {
+  --paper: #f3f5f7;
+  --sheet: #ffffff;
+  --ink: #142033;
+  --muted: #5a6577;
+  --line: #d7dce3;
+  --accent: #c8530a;
+  --accent-soft: #fdeee3;
+  --req: #b3261e; --req-soft: #fbe9e7;
+  --rec: #9a5b00; --rec-soft: #fdf1dc;
+  --opt: #5d6878; --opt-soft: #eceff3;
+  --edit: #3a4fc4; --edit-soft: #eaedfb;
+  --model-bg: #f6f8fa;
+  --font-display: "IBM Plex Serif", "IBM Plex Sans KR", Georgia, serif;
+  --font-body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f141b; --sheet: #161d27; --ink: #e6ebf1; --muted: #9aa6b6; --line: #2a3441;
+    --accent: #ff9a52; --accent-soft: #3a2416;
+    --req: #ff8a80; --req-soft: #3a1d1c; --rec: #f2b45c; --rec-soft: #35290f; --opt: #a5b0bf; --opt-soft: #222b36;
+    --edit: #9fb0ff; --edit-soft: #1d2340;
+    --model-bg: #111821; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f141b; --sheet: #161d27; --ink: #e6ebf1; --muted: #9aa6b6; --line: #2a3441;
+  --accent: #ff9a52; --accent-soft: #3a2416;
+  --req: #ff8a80; --req-soft: #3a1d1c; --rec: #f2b45c; --rec-soft: #35290f; --opt: #a5b0bf; --opt-soft: #222b36;
+  --edit: #9fb0ff; --edit-soft: #1d2340;
+  --model-bg: #111821; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-padding-top: 150px; }
+body { margin: 0; background: var(--paper); color: var(--ink); font-family: var(--font-body); font-size: 15px; line-height: 1.6; }
+h1, h2, h3 { text-wrap: balance; margin: 0; word-break: keep-all; }
+body { word-break: keep-all; }
+a { color: var(--accent); }
+button, input { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.bar { position: sticky; top: 0; z-index: 10; background: var(--paper); border-bottom: 1px solid var(--line); }
+.bar-in { max-width: 1320px; margin: 0 auto; padding: 12px 20px; display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.brand { display: flex; flex-direction: column; min-width: 220px; flex: 1 1 240px; }
+.brand h1 { font-family: var(--font-display); font-weight: 600; font-size: 21px; letter-spacing: -0.01em; }
+.brand p { margin: 0; color: var(--muted); font-size: 13px; }
+.controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--sheet); }
+.seg button { border: 0; background: transparent; padding: 6px 11px; cursor: pointer; font-size: 13px; font-weight: 500; color: var(--muted); }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.search { flex: 1 1 240px; min-width: 200px; }
+.search { position: relative; }
+.search-row { display: flex; align-items: center; gap: 6px; }
+.search-row input { flex: 1 1 auto; min-width: 0; }
+.sr-nav { display: inline-flex; align-items: center; gap: 2px; font-size: 12.5px; color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.sr-nav button { border: 1px solid var(--line); background: var(--sheet); border-radius: 6px; width: 26px; height: 26px; cursor: pointer; font-size: 10px; color: var(--muted); }
+.sr-nav button:hover { color: var(--accent); border-color: var(--accent); }
+.sr-panel { position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 30; background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; box-shadow: 0 10px 30px rgba(20,32,51,.14); max-height: min(60vh, 520px); overflow: auto; padding: 6px; }
+.sr-head { font-size: 12px; color: var(--muted); padding: 4px 8px 6px; display: flex; justify-content: space-between; }
+.sr-head button { border: 0; background: none; color: var(--muted); cursor: pointer; font-size: 12px; }
+.sr-item { display: block; width: 100%; text-align: left; border: 0; background: transparent; border-radius: 8px; padding: 8px 10px; cursor: pointer; color: var(--ink); }
+.sr-item:hover, .sr-item.on { background: var(--accent-soft); }
+.sr-path { font-size: 12px; color: var(--accent); font-weight: 600; display: block; }
+.sr-snip { font-size: 13px; color: var(--muted); display: block; margin-top: 2px; }
+.sr-snip b { color: var(--ink); background: color-mix(in srgb, var(--rec) 28%, transparent); font-weight: 600; border-radius: 2px; }
+.sr-empty { padding: 10px; font-size: 13px; color: var(--muted); }
+mark.cur { outline: 2px solid var(--accent); background: color-mix(in srgb, var(--accent) 30%, transparent); }
+.search input { width: 100%; padding: 7px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--sheet); font-size: 14px; }
+.ghost { border: 1px solid var(--line); background: var(--sheet); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 13px; }
+.ghost:hover, .seg button:not([aria-pressed="true"]):hover { color: var(--ink); }
+.btn-edit { border: 1px solid var(--edit); color: var(--edit); background: var(--sheet); border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 13px; font-weight: 600; }
+.btn-edit[aria-pressed="true"] { background: var(--edit); color: #fff; }
+.editbar { background: var(--edit-soft); color: var(--edit); border-top: 1px solid var(--line); font-size: 13px; }
+.editbar .bar-in { padding: 7px 20px; gap: 6px 16px; }
+.editbar b { font-weight: 600; }
+.save-state { margin-left: auto; font-variant-numeric: tabular-nums; }
+
+.wrap { max-width: 1200px; margin: 0 auto; padding: 28px 20px 64px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+.logo { display: inline-flex; align-items: center; justify-content: center; height: 34px; min-width: 34px; margin-right: 22px; padding-right: 22px; border-right: 1px solid var(--line); border-radius: 0; text-decoration: none; border-radius: 6px; flex: none; }
+.logo img { height: 32px; width: auto; display: block; }
+.logo .lg-dark { display: none; }
+:root[data-theme="dark"] .logo .lg-light { display: none; }
+:root[data-theme="dark"] .logo .lg-dark { display: block; }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .logo .lg-light { display: none; } :root:not([data-theme="light"]) .logo .lg-dark { display: block; } }
+.logo .ph { font-family: var(--font-body); font-weight: 700; font-size: 15px; letter-spacing: .02em; color: var(--accent); border: 1.5px dashed var(--accent); border-radius: 6px; padding: 3px 8px; }
+.brand { flex-direction: row !important; align-items: center; }
+.to-top { cursor: pointer; }
+.money-layer { position: fixed; inset: 0; pointer-events: none; z-index: 9999; overflow: hidden; }
+.money { position: absolute; left: 0; top: 0; will-change: transform, opacity; }
+.money.bill { width: 46px; height: 22px; border-radius: 3px; background: linear-gradient(135deg, #7fc98f, #3f9a5a); border: 1.5px solid #2e7a45; box-shadow: inset 0 0 0 3px rgba(255,255,255,.25), 0 2px 4px rgba(0,0,0,.18); color: #1d5530; font: 700 12px/19px var(--font-body, sans-serif); text-align: center; }
+.money.bill.b2 { background: linear-gradient(135deg, #f3c58a, #d98c3a); border-color: #b36d24; color: #6e3e0c; }
+.money.coin { width: 20px; height: 20px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff3b0, #f1b52c 55%, #c4840c); border: 1.5px solid #a86f08; box-shadow: 0 2px 3px rgba(0,0,0,.2); color: #7a4f00; font: 700 11px/17px var(--font-body, sans-serif); text-align: center; }
+.editing .to-top { cursor: text; }
+.secnav { border-top: 1px solid var(--line); }
+.secnav-in { max-width: 1200px; margin: 0 auto; padding: 6px 20px; display: flex; gap: 4px; overflow-x: auto; scrollbar-width: thin; }
+.secnav a { white-space: nowrap; padding: 6px 12px; border-radius: 99px; font-size: 13.5px; font-weight: 500; color: var(--muted); text-decoration: none; }
+.secnav a:hover { color: var(--ink); background: var(--accent-soft); }
+.secnav a.on { color: var(--accent); background: var(--accent-soft); font-weight: 600; }
+.secnav .sep { width: 1px; background: var(--line); margin: 6px 6px; flex: none; }
+nav.toc { position: sticky; top: 120px; align-self: start; max-height: calc(100vh - 140px); overflow: auto; font-size: 13.5px; }
+nav.toc h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); font-family: var(--font-body); margin-bottom: 8px; }
+nav.toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+nav.toc a { display: grid; grid-template-columns: 38px 1fr; gap: 6px; padding: 5px 8px; border-radius: 6px; text-decoration: none; color: var(--ink); }
+nav.toc a:hover { background: var(--accent-soft); }
+nav.toc .code { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); padding-top: 2px; }
+nav.toc .grp { font-size: 11.5px; color: var(--muted); padding: 10px 8px 2px; }
+main { min-width: 0; display: grid; gap: 40px; }
+main > *, #contracts > *, .c-body > *, .c-meta > *, .pair > * { min-width: 0; }
+.bar-in > * { min-width: 0; }
+.card, .box, .jn, .model, .c-sum, .lead { overflow-wrap: break-word; }
+.dl button { white-space: nowrap; }
+
+.sec-h { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; margin-bottom: 6px; }
+.sec-h h2 { font-family: var(--font-display); font-weight: 600; font-size: 24px; }
+.lead { color: var(--muted); max-width: 72ch; margin: 0 0 16px; }
+
+.assume { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 12px; }
+.card { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px 14px 18px; position: relative; display: grid; gap: 6px; align-content: start; }
+.card::before { content: ""; position: absolute; left: 0; top: 10px; bottom: 10px; width: 4px; border-radius: 0 3px 3px 0; background: var(--rec); }
+.card.high::before { background: var(--req); }
+.card h3 { font-size: 15px; font-weight: 600; display: flex; gap: 8px; align-items: baseline; }
+.card p { margin: 0; font-size: 14px; }
+.card .act { font-size: 13.5px; color: var(--accent); }
+.card .act b { font-weight: 600; }
+.sev { font-size: 11px; font-weight: 600; padding: 1px 7px; border-radius: 99px; white-space: nowrap; background: var(--rec-soft); color: var(--rec); }
+.sev.high { background: var(--req-soft); color: var(--req); }
+
+.tbl-wrap { overflow-x: auto; background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { padding: 9px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { font-size: 12.5px; color: var(--muted); font-weight: 600; background: var(--model-bg); white-space: nowrap; }
+tr:last-child td { border-bottom: 0; }
+td.c { text-align: center; white-space: nowrap; font-variant-numeric: tabular-nums; }
+td.c.on { color: var(--accent); font-weight: 700; }
+th.sel, td.sel { background: var(--accent-soft); }
+.jt td { min-width: 170px; font-size: 13.5px; }
+.jt td:first-child { min-width: 130px; font-weight: 600; }
+
+.contract { background: var(--sheet); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+.c-head { padding: 18px 20px 16px; border-bottom: 1px solid var(--line); display: grid; gap: 10px; }
+.c-title { display: flex; flex-wrap: wrap; gap: 6px 12px; align-items: baseline; }
+.c-title .code { font-family: var(--font-mono); font-size: 12px; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 0 6px; }
+.c-title h2 { font-family: var(--font-display); font-size: 21px; font-weight: 600; }
+.c-title .alt { color: var(--muted); font-size: 13.5px; }
+.jchip { font-size: 11px; padding: 1px 7px; border-radius: 99px; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-family: var(--font-mono); }
+.c-sum { margin: 0; max-width: 80ch; }
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 8px 20px; font-size: 13px; margin: 0; }
+.facts div { display: grid; gap: 1px; }
+.facts dt { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; }
+.facts dd { margin: 0; }
+.count { font-size: 12.5px; color: var(--muted); }
+.basis { font-size: 12.5px; color: var(--muted); }
+
+.clause { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: 16px 24px; padding: 16px 20px; border-top: 1px solid var(--line); }
+.c-meta { display: grid; gap: 4px; align-content: start; }
+.c-meta .nm { font-weight: 600; font-size: 15px; line-height: 1.4; }
+.c-meta .term { font-size: 12.5px; color: var(--muted); }
+.pill { justify-self: start; font-size: 11px; font-weight: 600; padding: 1px 8px; border-radius: 99px; border: 0; }
+.pill.R { background: var(--req-soft); color: var(--req); }
+.pill.C { background: var(--rec-soft); color: var(--rec); }
+.pill.O { background: var(--opt-soft); color: var(--opt); }
+button.pill { cursor: pointer; }
+.c-body { display: grid; gap: 10px; min-width: 0; }
+.c-body .def { margin: 0; }
+.c-body .def > b { font-weight: 600; margin-right: 6px; color: var(--muted); font-size: 12.5px; }
+.pair { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; }
+.box { border-radius: 8px; padding: 10px 12px; font-size: 14px; }
+.box h4 { margin: 0 0 3px; font-size: 12px; font-weight: 600; letter-spacing: .02em; }
+.box p { margin: 0; }
+.box.must { background: var(--accent-soft); }
+.box.must h4 { color: var(--accent); }
+.box.flag { background: var(--req-soft); }
+.box.flag h4 { color: var(--req); }
+.flag-more { margin: 8px 0 0; padding: 8px 0 0 18px; border-top: 1px dashed color-mix(in srgb, var(--req) 35%, transparent); display: grid; gap: 4px; font-size: 13.5px; }
+.flag-more li::marker { color: var(--req); }
+.fm-lab { margin-top: 8px; font-size: 11px; font-weight: 600; color: var(--req); }
+.fm-edit { white-space: pre-line; font-size: 13.5px; }
+.model { border-left: 3px solid var(--accent); background: var(--model-bg); padding: 8px 12px; font-size: 13.5px; border-radius: 0 6px 6px 0; }
+.model h4 { margin: 0 0 2px; font-size: 12px; color: var(--muted); font-weight: 600; }
+.model p { margin: 0; font-family: var(--font-display); }
+.compact .pair, .compact .model { display: none; }
+mark { background: color-mix(in srgb, var(--rec) 28%, transparent); color: inherit; border-radius: 2px; }
+.empty { padding: 24px; text-align: center; color: var(--muted); background: var(--sheet); border: 1px dashed var(--line); border-radius: 10px; }
+.legend { font-size: 12.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; margin: -4px 0 4px; }
+.legend .pill { margin-right: 4px; }
+sup.fn { font-size: 8.5px; line-height: 0; margin-left: 1px; opacity: .85; }
+sup.fn a { text-decoration: none; font-family: var(--font-mono); padding: 0 1px; }
+sup.fn a:hover { text-decoration: underline; }
+.refs ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; font-size: 12px; }
+.en-lab { display: block; font-size: 11px; font-weight: 600; letter-spacing: .03em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
+.en-sub { margin-top: 6px !important; padding-top: 6px; border-top: 1px dashed color-mix(in srgb, var(--accent) 35%, transparent); font-size: 13px; color: var(--muted); }
+.refs li { display: grid; grid-template-columns: 34px 1fr; gap: 6px; padding: 4px 6px; border-radius: 6px; }
+.refs li:target { background: var(--rec-soft); }
+.refs .n { font-family: var(--font-mono); color: var(--muted); font-size: 10.5px; padding-top: 2px; }
+.refs a { word-break: break-word; }
+.refs h3 { font-size: 13px; color: var(--muted); font-weight: 600; margin: 14px 0 4px; }
+.refs .box-in { background: var(--sheet); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; }
+footer { border-top: 1px solid var(--line); padding-top: 16px; font-size: 13px; color: var(--muted); max-width: 90ch; }
+[hidden] { display: none !important; }
+
+.dl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.dl button { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--accent); color: var(--accent); background: var(--sheet); border-radius: 8px; padding: 5px 11px; cursor: pointer; font-size: 13px; font-weight: 600; }
+.dl button:hover { background: var(--accent-soft); }
+.dl button svg { width: 14px; height: 14px; }
+.dl .dl-msg { font-size: 12.5px; color: var(--muted); }
+.flow td { vertical-align: middle; }
+.flow .dl button { padding: 3px 9px; font-size: 12.5px; }
+.sub-h { font-family: var(--font-display); font-size: 18px; font-weight: 600; margin: 24px 0 4px; }
+.opt-link { color: var(--ink); text-decoration: none; border-bottom: 1px dotted var(--accent); }
+.opt-link:hover { color: var(--accent); }
+.clause:target { background: var(--rec-soft); }
+.jn { border: 1px solid var(--line); border-radius: 8px; padding: 8px 12px; font-size: 13.5px; display: grid; gap: 4px; }
+.jn h4 { margin: 0; font-size: 12px; color: var(--muted); font-weight: 600; }
+.jn div { display: grid; grid-template-columns: 64px 1fr; gap: 8px; }
+.jn .jchip { justify-self: start; align-self: start; margin-top: 2px; }
+/* Edit mode */
+.editing [data-ek], .editing [data-ak] { outline: 1px dashed color-mix(in srgb, var(--edit) 55%, transparent); outline-offset: 2px; border-radius: 3px; cursor: text; }
+.editing [data-ek]:focus, .editing [data-ak]:focus { outline: 2px solid var(--edit); background: var(--sheet); }
+.editing [data-ek]:empty::before, .editing [data-ak]:empty::before { content: attr(data-ph); color: var(--muted); }
+.edited-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--edit); margin-left: 6px; vertical-align: middle; }
+.etools { display: none; gap: 6px; flex-wrap: wrap; margin-top: 6px; }
+.editing .etools { display: flex; }
+.etools button { font-size: 11.5px; border: 1px solid var(--line); background: var(--sheet); border-radius: 6px; padding: 2px 8px; cursor: pointer; color: var(--muted); }
+.etools button:hover { color: var(--edit); border-color: var(--edit); }
+.tag-new { font-size: 11px; font-weight: 600; color: var(--edit); background: var(--edit-soft); border-radius: 99px; padding: 1px 7px; justify-self: start; }
+.clause.hiddenc, tr.hiddenc { opacity: .45; }
+.add-row { display: none; padding: 12px 20px; border-top: 1px dashed var(--line); }
+.editing .add-row { display: block; }
+.add-row button { border: 1px dashed var(--edit); color: var(--edit); background: transparent; border-radius: 8px; padding: 6px 12px; cursor: pointer; font-size: 13px; }
+.model.placeholder { display: none; }
+.editing .model.placeholder { display: block; opacity: .75; }
+
+@media (max-width: 980px) {
+  .wrap { grid-template-columns: minmax(0, 1fr); }
+  nav.toc { position: static; max-height: none; border: 1px solid var(--line); border-radius: 10px; padding: 12px; background: var(--sheet); }
+  nav.toc ol { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+}
+@media (max-width: 680px) {
+  .bar { position: sticky; }
+  .bar-in { padding: 8px 14px; gap: 8px; }
+  .brand { flex: 1 1 100%; }
+  .brand h1 { font-size: 16px; line-height: 1.3; }
+  .logo img { height: 24px; }
+  .logo { margin-right: 12px; padding-right: 12px; }
+  .controls { flex: 0 0 auto; }
+  .search { flex: 1 1 140px; min-width: 0; }
+  .ghost, .btn-edit { padding: 6px 9px; font-size: 12.5px; }
+  .secnav-in { padding: 4px 10px; }
+  .secnav a { padding: 5px 10px; font-size: 13px; }
+  html { scroll-padding-top: 150px; }
+  .assume { grid-template-columns: minmax(0, 1fr); }
+  .sec-h h2 { font-size: 20px; }
+  .c-title h2 { font-size: 18px; }
+  .facts { grid-template-columns: minmax(0, 1fr); }
+  .jn div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .jt td { min-width: 140px; }
+  table.stack thead { display: none; }
+  table.stack, table.stack tbody, table.stack tr, table.stack td { display: block; width: 100%; }
+  table.stack tr { padding: 12px 14px; border-bottom: 1px solid var(--line); }
+  table.stack tr:last-child { border-bottom: 0; }
+  table.stack td { border: 0; padding: 2px 0; }
+  table.stack td.doc { font-weight: 600; font-size: 15px; padding-bottom: 6px; }
+  table.stack td[data-l]::before { content: attr(data-l) " · "; color: var(--muted); font-size: 12.5px; }
+  table.stack .dl { margin-top: 8px; }
+  .editbar .bar-in { font-size: 12px; }
+  .clause { grid-template-columns: minmax(0, 1fr); gap: 8px; padding: 14px 16px; }
+  .pair { grid-template-columns: minmax(0, 1fr); }
+  .c-head { padding: 16px; }
+  .wrap { padding: 16px 16px 48px; }
+}
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="bar-in">
+    <div class="brand"><a href="#top" class="logo" id="logo" title="맨 위로 이동" aria-label="맨 위로 이동"></a><h1 id="t-title" class="to-top" title="맨 위로 이동"></h1></div>
+    <div class="controls"><button type="button" class="ghost" id="toggle-compact"></button></div>
+    <div class="search" id="search-box"><div class="search-row"><input id="q" type="search" autocomplete="off" aria-label="검색" aria-controls="sr-panel"><span class="sr-nav" id="sr-nav" hidden><span id="sr-count"></span><button type="button" id="sr-prev" aria-label="이전 결과">▲</button><button type="button" id="sr-next" aria-label="다음 결과">▼</button></span></div>
+      <div class="sr-panel" id="sr-panel" role="listbox" hidden></div></div>
+    <div class="controls"><button type="button" class="btn-edit" id="toggle-edit" aria-pressed="false" hidden></button></div>
+  </div>
+  <nav class="secnav" aria-label="섹션 이동"><div class="secnav-in" id="secnav"></div></nav>
+  <div class="editbar" id="editbar" hidden><div class="bar-in"><b id="t-edithelp-h"></b><span id="t-edithelp"></span><span class="save-state" id="save-state"></span></div></div>
+</header>
+
+<div class="wrap" id="top">
+  <main id="main">
+    <section id="assumptions">
+      <div class="sec-h"><h2 id="t-assume"></h2></div>
+      <p class="lead" id="t-assume-lead"></p>
+      <div class="assume" id="assume-list"></div>
+    </section>
+    <section id="jurisdictions">
+      <div class="sec-h"><h2 id="t-jur"></h2></div>
+      <p class="lead" id="t-jur-lead"></p>
+      <div class="tbl-wrap"><table class="jt" id="jur-table"></table></div>
+    </section>
+    <section id="matrix">
+      <div class="sec-h"><h2 id="t-matrix"></h2><span class="count" id="t-matrix-lead"></span></div>
+      <p class="lead" id="t-matrix-lead2"></p>
+      <div class="tbl-wrap"><table class="flow stack" id="matrix-table"></table></div>
+    </section>
+    <div class="legend" id="legend"></div>
+    <div id="contracts" style="display:grid;gap:28px"></div>
+    <div class="empty" id="empty" hidden></div>
+    <section id="closing">
+      <div class="sec-h"><h2 id="t-closing"></h2></div>
+      <p class="lead" id="t-closing-lead"></p>
+      <div class="tbl-wrap"><table class="stack" id="closing-table"></table></div>
+      <div class="add-row" id="closing-add" style="border:0;padding:10px 0" hidden><button type="button" data-act="add-closing">+ 항목 추가</button></div>
+    </section>
+    <section id="refs" class="refs">
+      <div class="sec-h"><h2 id="t-refs"></h2></div>
+      <p class="lead" id="t-refs-lead"></p>
+      <div class="box-in" id="refs-list"></div>
+    </section>
+    <footer><p id="t-asof" style="margin:0 0 6px;font-weight:600"></p><p id="t-disc" style="margin:0"></p><p id="t-dbnote" style="margin:6px 0 0"></p></footer>
+  </main>
+</div>
+
+<script src="logo.js"></script>
+<script src="data-a.js"></script>
+<script src="data-b.js"></script>
+<script src="data-c.js"></script>
+<script src="data-d.js"></script>
+<script src="data-e.js"></script>
+<script src="data-f.js"></script>
+<script src="data-g.js"></script>
+<script src="data-h.js"></script>
+<script src="data-i.js"></script>
+<script src="data-j.js"></script>
+<script src="data-k.js"></script>
+<script src="templates.js" defer></script>
+<script src="snapshot.js"></script>
+<script src="tpl-data.js"></script>
+<script src="docgen.js"></script>
+<script src="docx.js" defer></script>
+<script>
+(function () {
+  var G = window.GUIDE;
+  var X = {
+    ko: { jurAll: "전체", jur: "관할별 비교", jurLead: "주요 투자 지역 5곳의 법인 형태, 표준 문서, 규제 차이입니다. 조항별 관할 유의사항은 각 조항 아래에 있습니다.",
+      refs: "법령·출처", refsLead: "본문의 각주 번호를 누르면 이곳으로 이동합니다. ‘해설’ 표시는 원문이 아닌 법무법인·언론의 해설 자료입니다.",
+      basis: "근거", edit: "편집", editing: "편집 종료", editH: "편집 모드", editHelp: "테두리 친 글을 눌러 바로 고치세요. 다른 곳을 누르면 자동 저장되고, 공유받은 팀원에게도 같은 내용이 보입니다. 지금 보는 언어의 문구만 바뀝니다.",
+      saving: "저장 중…", saved: "저장됨", saveErr: "저장 실패: 편집 권한(소유자·편집자)이 있는지 확인하세요", loadSlow: "저장된 수정 내용을 아직 불러오지 못했습니다",
+      reset: "이 조항 원래대로", hide: "숨기기", show: "다시 표시", del: "삭제", addClause: "+ 조항 추가", newTag: "추가됨", edited: "수정됨",
+      addModel: "모델 문구를 입력하세요", ph: "내용을 입력하세요", newName: "새 조항", levelHint: "등급을 눌러 바꾸기",
+      dbNote: "수정 내용은 이 페이지의 공유 저장소에 기록되며, 페이지 소유자와 편집자(Editor) 권한을 가진 사람만 고칠 수 있습니다.",
+      grp: { doc: "계약서", common: "공통", kr: "한국", us: "미국", local: "현지법", common2: "공통" },
+      flow: "계약서 흐름과 예시", flowLead: "6개 문서가 딜 단계별로 언제 쓰이는지와 구속력 범위입니다. 버튼을 누르면 예시 계약서(.docx)를 내려받습니다. 파일은 누를 때마다 현재 페이지 내용으로 새로 만들어져, 조항명 수정과 부록 체크리스트(정의·Red flag·관할별 유의사항 등)에 편집 내용이 반영됩니다. 한글본은 한국법, 영문본은 해외 딜(싱가포르법 기본, 관할별 주석 포함) 기준입니다.",
+      colStage: "단계", colBind: "구속력", colWho2: "통상 초안 작성", colFile: "예시 양식", dlKo: "한글 .docx", dlEn: "English .docx", dlFail: "다운로드할 수 없습니다. 파일을 불러오지 못했거나 이 화면에서 다운로드가 막혀 있습니다.", dlDeclined: "다운로드를 취소했습니다.", jn: "관할별 유의사항" },
+    en: { jurAll: "All", jur: "Jurisdiction comparison", jurLead: "Entity forms, standard documents and regulatory differences across the five markets. Clause-level notes by jurisdiction sit under each clause.",
+      refs: "Statutes and sources", refsLead: "Footnote numbers in the text link here. Items marked commentary are law-firm or press explanations, not primary text.",
+      basis: "Basis", edit: "Edit", editing: "Done editing", editH: "Edit mode", editHelp: "Click any outlined text to change it. Changes save when you click away and are visible to everyone the page is shared with. Only the current language is changed.",
+      saving: "Saving…", saved: "Saved", saveErr: "Save failed: check you are the owner or an Editor", loadSlow: "Saved edits have not loaded yet",
+      reset: "Reset clause", hide: "Hide", show: "Show again", del: "Delete", addClause: "+ Add clause", newTag: "Added", edited: "Edited",
+      addModel: "Add model language", ph: "Type here", newName: "New clause", levelHint: "Click the level to change it",
+      dbNote: "Edits are stored with this page; only the owner and people with Editor access can change them.",
+      grp: { doc: "Contracts", common: "Common", kr: "Korea", us: "United States", local: "Local law", common2: "Common" },
+      flow: "Document flow and sample forms", flowLead: "When each of the six documents is used and how much of it binds. Buttons download a sample (.docx): the Korean version follows Korean law; the English version is for cross-border deals (Singapore law by default, with notes per jurisdiction).",
+      colStage: "Stage", colBind: "Binding", colWho2: "Usually drafted by", colFile: "Sample form", dlKo: "Korean .docx", dlEn: "English .docx", dlFail: "Download unavailable: the file did not load or downloads are blocked in this view.", dlDeclined: "Download cancelled.", jn: "Jurisdiction notes" }
+  };
+
+  var state = { lang: "ko", jur: "ALL", q: "", compact: false, editing: false };
+
+
+  var edits = {};      // key -> {v, by, at}
+  var added = {};      // id -> doc
+  if (window.GUIDE_SNAPSHOT) { edits = GUIDE_SNAPSHOT.edits || {}; added = GUIDE_SNAPSHOT.added || {}; }
+  var db = null, me = null, pendingRender = false, writeChain = {};
+
+  // reference numbering in list order
+  var refNum = {};
+
+  var groupRank = { doc: 0, common: 0, kr: 1, us: 2, local: 3, common2: 4 };
+  var contracts = G.contracts.slice().sort(function (a, b) {
+    var ga = groupRank[G.groupOf[a.id]], gb = groupRank[G.groupOf[b.id]];
+    return (ga - gb) || (parseFloat(a.code) - parseFloat(b.code)) || (a.code < b.code ? -1 : 1);
+  });
+
+  function slug(s) { return String(s).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 80); }
+  function esc(s) { return String(s == null ? "" : s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function hi(s) {
+    var t = esc(s);
+    if (!state.q || state.editing) return t;
+    var q = state.q.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    try { return t.replace(new RegExp("(" + esc(q) + ")", "gi"), "<mark>$1</mark>"); } catch (e) { return t; }
+  }
+  function L(o) { return o ? (o[state.lang] || o.ko || "") : ""; }
+  function U(k) { return G.ui[state.lang][k]; }
+  function V(k) { return X[state.lang][k]; }
+  function jurName(id) { var j = G.jurisdictions.filter(function (x) { return x.id === id; })[0]; return j ? j[state.lang] : id; }
+  function jurVisible(list) { return state.jur === "ALL" || list.indexOf("ALL") >= 0 || list.indexOf(state.jur) >= 0; }
+
+  // effective value with edit override
+  function ev(key, def) { return edits[key] ? String(edits[key].v) : def; }
+  function isEdited(prefix) { for (var k in edits) if (k.indexOf(prefix) === 0) return true; return false; }
+
+  // abbreviation expansion on first use within a block (view mode only)
+  var ABS = {};
+  function resetAbbr() { ABS = {}; }
+  function reEsc(x) { return x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  var ABBR_RE = (G.abbr || []).map(function (a) {
+    var re = null;
+    try { re = new RegExp("(^|[^A-Za-z0-9\\-(])(" + reEsc(a[0]) + ")(?![A-Za-z0-9])(?!\\s*\\()"); } catch (e) {}
+    return [a[0], a[1], re];
+  });
+  function xa(text) {
+    if (state.editing || !text) return text;
+    ABBR_RE.forEach(function (a) {
+      if (ABS[a[0]] || !a[2]) return;
+      var eng = a[1].split(",")[0];
+      if (text.indexOf(eng) >= 0) { ABS[a[0]] = 1; return; }
+      if (a[2].test(text)) { text = text.replace(a[2], "$1$2 (" + a[1] + ")"); ABS[a[0]] = 1; }
+    });
+    return text;
+  }
+  // editable span
+  function ed(key, def, tag, cls, noAbbr) {
+    tag = tag || "span";
+    var val = ev(key, def);
+    if (!noAbbr) val = xa(val);
+    return "<" + tag + (cls ? ' class="' + cls + '"' : "") + ' data-ek="' + esc(key) + '" data-def="' + esc(def) + '" data-ph="' + esc(V("ph")) + '">' + hi(val) + "</" + tag + ">";
+  }
+  function edA(id, field, val, tag, cls) {
+    tag = tag || "span";
+    return "<" + tag + (cls ? ' class="' + cls + '"' : "") + ' data-ak="' + esc(id + "|" + field) + '" data-ph="' + esc(V("ph")) + '">' + hi(xa(val)) + "</" + tag + ">";
+  }
+  function fns(ids) {
+    if (!ids || !ids.length) return "";
+    return '<sup class="fn">' + ids.map(function (id) { return '<a href="#ref-' + id + '" title="' + esc(refLabel(id)) + '">[' + refNum[id] + "]</a>"; }).join("") + "</sup>";
+  }
+  function refLabel(id) { var r = G.refs.filter(function (x) { return x.id === id; })[0]; return r ? r[state.lang] : id; }
+
+  /* ---------- Static text ---------- */
+  function T(key, def, tag, cls) { return ed("ui~" + key, def, tag, cls); }
+  function TV(key, def) { return ev("ui~" + key, def); }
+  function renderStatic() {
+    document.documentElement.lang = "ko";
+    document.title = TV("title", U("title"));
+    var set = function (id, html) { var el = document.getElementById(id); if (el) el.innerHTML = html; };
+    set("t-title", T("title", U("title")));
+    set("t-assume", T("assume", U("assumptions")));
+    set("t-assume-lead", T("assume-lead", U("assumptionsLead")));
+    set("t-jur", T("jur", V("jur")));
+    set("t-jur-lead", T("jur-lead", V("jurLead")));
+    set("t-matrix", T("flow", V("flow")));
+    set("t-matrix-lead", "");
+    set("t-matrix-lead2", T("flow-lead", V("flowLead")));
+    set("t-closing", T("closing", U("closing")));
+    set("t-closing-lead", T("closing-lead", U("closingLead")));
+    set("t-refs", T("refs", V("refs")));
+    set("t-refs-lead", T("refs-lead", V("refsLead")));
+    set("t-asof", T("asof", U("asof")));
+    set("t-disc", T("disc", U("disclaimer")));
+    document.getElementById("t-dbnote").textContent = V("dbNote");
+    document.getElementById("t-edithelp-h").textContent = V("editH");
+    document.getElementById("t-edithelp").textContent = "테두리 친 글(제목 포함)을 눌러 바로 고치세요. 다른 곳을 누르면 자동 저장되고, 공유받은 사람에게도 같은 내용이 보입니다.";
+    document.getElementById("q").placeholder = U("search");
+    document.getElementById("toggle-compact").textContent = state.compact ? U("expand") : U("collapse");
+    var te = document.getElementById("toggle-edit");
+    te.textContent = state.editing ? V("editing") : V("edit");
+    te.setAttribute("aria-pressed", String(state.editing));
+    document.getElementById("editbar").hidden = !state.editing;
+    document.body.classList.toggle("editing", state.editing);
+    var logo = document.getElementById("logo");
+    if (window.GUIDE_LOGO) logo.innerHTML = '<img class="lg-light" src="' + window.GUIDE_LOGO + '" alt="Hanwha">' + (window.GUIDE_LOGO_DARK ? '<img class="lg-dark" src="' + window.GUIDE_LOGO_DARK + '" alt="Hanwha">' : ""); else logo.hidden = true;
+    document.getElementById("legend").innerHTML =
+      '<span><span class="pill R">' + esc(U("lvlR")) + '</span><span class="pill C">' + esc(U("lvlC")) + '</span><span class="pill O">' + esc(U("lvlO")) + "</span></span><span>" + esc(U("legend")) + "</span>" + (state.editing ? "<span>· " + esc(V("levelHint")) + "</span>" : "");
+  }
+
+  /* ---------- Assumptions ---------- */
+  function renderAssumptions() {
+    var lang = state.lang;
+    document.getElementById("assume-list").innerHTML = G.assumptions.map(function (a) {
+      resetAbbr();
+      var sl = slug(a.t.en), base = "a~" + sl + "~";
+      var hidden = edits[base + "hidden"];
+      if (hidden && !state.editing) return "";
+      var refs = G.refsOf["a~" + sl];
+      return '<article class="card ' + a.sev + (hidden ? " hiddenc" : "") + '"><h3><span class="sev ' + a.sev + '">' + esc(a.sev === "high" ? U("sevHigh") : U("sevMed")) + "</span><span>" + ed(base + "t~" + lang, L(a.t)) + fns(refs) + "</span></h3>" +
+        ed(base + "d~" + lang, L(a.d), "p") + '<p class="act"><b>' + esc(U("action")) + ":</b> " + ed(base + "a~" + lang, L(a.a)) + "</p>" +
+        '<div class="etools"><button type="button" data-act="toggle-hide" data-base="' + base + '">' + esc(hidden ? V("show") : V("hide")) + "</button>" +
+        (isEdited(base) ? '<button type="button" data-act="reset" data-base="' + base + '">' + esc(V("reset")) + "</button>" : "") + "</div></article>";
+    }).join("");
+  }
+
+  /* ---------- Jurisdiction table ---------- */
+  function renderJur() {
+    var cols = G.jurisdictions.filter(function (j) { return state.jur === "ALL" || j.id === state.jur; });
+    var lang = state.lang;
+    var h = "<thead><tr><th></th>" + cols.map(function (j) { return "<th>" + esc(j[lang]) + "</th>"; }).join("") + "</tr></thead><tbody>";
+    h += G.jurTable.map(function (r) {
+      resetAbbr();
+      return "<tr><td>" + ed("j~" + r.id + "~item~" + lang, L(r.item)) + "</td>" + cols.map(function (j) { return "<td>" + ed("j~" + r.id + "~" + j.id + "~" + lang, L(r[j.id])) + "</td>"; }).join("") + "</tr>";
+    }).join("");
+    document.getElementById("jur-table").innerHTML = h + "</tbody>";
+  }
+
+  /* ---------- Flow + downloads ---------- */
+  var DL_ICON = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 12.5h10" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  function dlButtons(cid) {
+    var f = G.files[cid]; if (!f) return "";
+    var order = state.lang === "ko" ? ["ko", "en"] : ["en", "ko"];
+    return '<span class="dl">' + order.map(function (l) {
+      return '<button type="button" data-dl="' + f[l] + '">' + DL_ICON + esc(V(l === "ko" ? "dlKo" : "dlEn")) + "</button>";
+    }).join("") + '<span class="dl-msg" role="status"></span></span>';
+  }
+  function renderMatrix() {
+    var lang = state.lang;
+    var byId = {}; G.contracts.forEach(function (c) { byId[c.id] = c; });
+    var h = "<thead><tr><th>" + esc(V("colStage")) + "</th><th>" + esc(U("colDoc")) + "</th><th>" + esc(V("colBind")) + "</th><th>" + esc(V("colWho2")) + "</th><th>" + esc(V("colFile")) + "</th></tr></thead><tbody>";
+    h += G.flow.map(function (r) {
+      var c = byId[r.id];
+      return '<tr><td data-l="' + esc(V("colStage")) + '">' + esc(L(r.stage)) + '</td><td class="doc"><a href="#' + r.id + '">' + esc(ev("c~" + r.id + "~title~" + lang, L(c.title))) + '</a></td><td data-l="' + esc(V("colBind")) + '">' + esc(L(r.bind)) + '</td><td data-l="' + esc(V("colWho2")) + '">' + esc(L(r.who)) + "</td><td>" + dlButtons(r.id) + "</td></tr>";
+    }).join("");
+    document.getElementById("matrix-table").innerHTML = h + "</tbody>";
+  }
+
+  /* ---------- Closing ---------- */
+  function renderClosing() {
+    var q = state.q.toLowerCase(), lang = state.lang;
+    var hit = function (arr) { return !q || arr.join(" ").toLowerCase().indexOf(q) >= 0; };
+    var h = "<thead><tr><th>" + esc(U("colItem")) + "</th><th>" + esc(U("colDeal")) + "</th><th>" + esc(U("colWho")) + "</th><th>" + esc(U("colNote")) + "</th>" + (state.editing ? "<th></th>" : "") + "</tr></thead><tbody>";
+    var rows = G.closing.map(function (r) {
+      resetAbbr();
+      var base = "z~" + slug(r.item.en) + "~";
+      var hidden = edits[base + "hidden"];
+      if (hidden && !state.editing) return "";
+      var vals = ["cat", "item", "deal", "who", "note"].map(function (f) { return ev(base + f + "~" + lang, L(r[f])); });
+      if (!hit(vals)) return "";
+      var tools = state.editing ? '<td><div class="etools"><button type="button" data-act="toggle-hide" data-base="' + base + '">' + esc(hidden ? V("show") : V("hide")) + "</button>" + (isEdited(base) ? '<button type="button" data-act="reset" data-base="' + base + '">' + esc(V("reset")) + "</button>" : "") + "</div></td>" : "";
+      return '<tr' + (hidden ? ' class="hiddenc"' : "") + '><td class="doc"><span class="count">' + ed(base + "cat~" + lang, L(r.cat)) + "</span><br>" + ed(base + "item~" + lang, L(r.item)) + '</td><td data-l="' + esc(U("colDeal")) + '">' + ed(base + "deal~" + lang, L(r.deal)) + '</td><td data-l="' + esc(U("colWho")) + '">' + ed(base + "who~" + lang, L(r.who)) + '</td><td data-l="' + esc(U("colNote")) + '">' + ed(base + "note~" + lang, L(r.note)) + "</td>" + tools + "</tr>";
+    }).join("");
+    var addedRows = Object.keys(added).filter(function (id) { return added[id].cid === "__closing"; })
+      .sort(function (a, b) { return String(added[a].at || "").localeCompare(String(added[b].at || "")); })
+      .map(function (id) {
+        resetAbbr();
+        var d = added[id], g = function (f) { return (d[f] && d[f][lang]) || ""; };
+        if (!hit([g("cat"), g("item"), g("deal"), g("who"), g("note")])) return "";
+        var tools = state.editing ? '<td><div class="etools"><button type="button" data-act="del-added" data-aid="' + id + '">' + esc(V("del")) + "</button></div></td>" : "";
+        return '<tr><td class="doc"><span class="count">' + edA(id, "cat." + lang, g("cat")) + "</span><br>" + edA(id, "item." + lang, g("item")) + '</td><td data-l="' + esc(U("colDeal")) + '">' + edA(id, "deal." + lang, g("deal")) + '</td><td data-l="' + esc(U("colWho")) + '">' + edA(id, "who." + lang, g("who")) + '</td><td data-l="' + esc(U("colNote")) + '">' + edA(id, "note." + lang, g("note")) + "</td>" + tools + "</tr>";
+      }).join("");
+    document.getElementById("closing-table").innerHTML = h + rows + addedRows + "</tbody>";
+    var addBox = document.getElementById("closing-add");
+    addBox.hidden = !(state.editing && db);
+  }
+
+  /* ---------- References ---------- */
+  var usedRefs = {};
+  (function () {
+    var keys = {};
+    G.assumptions.forEach(function (a) { keys["a~" + slug(a.t.en)] = 1; });
+    G.contracts.forEach(function (c) { keys["c~" + c.id] = 1; c.clauses.forEach(function (k) { keys["k~" + c.id + "~" + slug(k.en)] = 1; }); });
+    Object.keys(G.refsOf).forEach(function (k) { if (keys[k]) G.refsOf[k].forEach(function (id) { usedRefs[id] = 1; }); });
+  })();
+  function renderRefs() {
+    var lang = state.lang, h = "";
+    G.jurisdictions.forEach(function (j) {
+      var list = G.refs.filter(function (r) { return r.j === j.id && usedRefs[r.id]; });
+      if (!list.length) return;
+      h += "<h3>" + esc(j[lang]) + "</h3><ol>" + list.map(function (r) {
+        return '<li id="ref-' + r.id + '"><span class="n">[' + refNum[r.id] + ']</span><span>' + esc(r[lang]) + ' — <a href="' + esc(encodeURI(decodeURI(r.url))) + '" target="_blank" rel="noopener">' + esc(decodeURI(r.url).replace(/^https?:\/\//, "").slice(0, 70)) + (r.url.length > 78 ? "…" : "") + "</a></span></li>";
+      }).join("") + "</ol>";
+    });
+    document.getElementById("refs-list").innerHTML = h;
+  }
+
+  /* ---------- Contracts ---------- */
+  function clauseRow(c, k, opts) {
+    resetAbbr();
+    var lang = state.lang, other = lang === "ko" ? "en" : "ko";
+    var isAdded = !!opts.addedId;
+    var sl = isAdded ? null : slug(k.en);
+    var base = isAdded ? null : "k~" + c.id + "~" + sl + "~";
+    var lvl = isAdded ? (k.l || "R") : ev(base + "l", k.l);
+    var hidden = !isAdded && edits[base + "hidden"];
+    if (hidden && !state.editing) return "";
+    var lvlTxt = lvl === "R" ? U("lvlR") : lvl === "C" ? U("lvlC") : U("lvlO");
+    var pill = state.editing
+      ? '<button type="button" class="pill ' + lvl + '" data-act="level" ' + (isAdded ? 'data-aid="' + opts.addedId + '"' : 'data-key="' + base + 'l" data-def="' + k.l + '"') + ">" + esc(lvlTxt) + "</button>"
+      : '<span class="pill ' + lvl + '">' + esc(lvlTxt) + "</span>";
+    function F(field, defObj, tag, cls) {
+      if (isAdded) return edA(opts.addedId, field + "." + lang, (k[field] && k[field][lang]) || "", tag, cls);
+      return ed(base + field + "~" + lang, L(defObj), tag, cls);
+    }
+    var nameTxt = isAdded ? ((k.name && k.name[lang]) || "") : ev(base + "name~" + lang, k[lang]);
+    var otherName = isAdded ? ((k.name && k.name[other]) || "") : ev(base + "name~" + other, k[other]);
+    var nameHtml = isAdded ? edA(opts.addedId, "name." + lang, nameTxt, "span", "nm") : ed(base + "name~" + lang, k[lang], "span", "nm", true);
+    var refs = isAdded ? null : G.refsOf["k~" + c.id + "~" + sl];
+    var flagVal = isAdded ? ((k.flag && k.flag[lang]) || "") : ev(base + "flag~" + lang, L(k.flag));
+    var modelVal = isAdded ? ((k.model && k.model[lang]) || "") : ev(base + "model~" + lang, L(k.model));
+    var r = '<div class="clause' + (hidden ? " hiddenc" : "") + '"' + (isAdded ? "" : ' id="cl-' + c.id + "-" + sl + '"') + '><div class="c-meta">' + pill + '<div>' + nameHtml + fns(refs) + '</div><span class="term">' + hi(otherName) + "</span>";
+    if (isAdded) r += '<span class="tag-new">' + esc(V("newTag")) + "</span>";
+    else if (state.editing && isEdited(base)) r += '<span class="tag-new">' + esc(V("edited")) + "</span>";
+    r += '<div class="etools">';
+    if (isAdded) r += '<button type="button" data-act="del-added" data-aid="' + opts.addedId + '">' + esc(V("del")) + "</button>";
+    else {
+      r += '<button type="button" data-act="toggle-hide" data-base="' + base + '">' + esc(hidden ? V("show") : V("hide")) + "</button>";
+      if (isEdited(base)) r += '<button type="button" data-act="reset" data-base="' + base + '">' + esc(V("reset")) + "</button>";
+    }
+    r += "</div></div>";
+    r += '<div class="c-body"><p class="def"><b>' + esc(U("def")) + "</b>" + F("def", k.def) + "</p>";
+    var enSub = "";
+    if (lang === "ko") {
+      var terms = (!isAdded && G.enTerms[base.slice(0, -1)]) ? G.enTerms[base.slice(0, -1)].join(" · ") : ((k.must && k.must.en) || "");
+      enSub = '<div class="en-sub" lang="en"><span class="en-lab">English key provisions</span>' + (isAdded ? edA(opts.addedId, "must.en", terms, "span") : ed(base + "enterms~en", terms, "span", "", true)) + "</div>";
+    }
+    r += '<div class="pair"><div class="box must"><h4>' + esc(U("must")) + "</h4>" + F("must", k.must, "p") + enSub + "</div>";
+    var fmDef = (!isAdded && G.flagMore && G.flagMore[base.slice(0, -1)]) ? G.flagMore[base.slice(0, -1)].join("\n") : "";
+    var fmHtml = "";
+    if (!isAdded && (fmDef || state.editing)) {
+      var fmVal = ev(base + "flagmore~ko", fmDef);
+      if (state.editing) fmHtml = '<div class="fm-lab">추가 확인 (한 줄에 하나씩)</div>' + ed(base + "flagmore~ko", fmDef, "p", "fm-edit");
+      else if (fmVal) fmHtml = '<ul class="flag-more">' + fmVal.split(/\n+/).filter(Boolean).map(function (t) { return "<li>" + hi(xa(t)) + "</li>"; }).join("") + "</ul>";
+    }
+    if (state.editing || (flagVal && flagVal !== "—") || fmHtml) r += '<div class="box flag"><h4>' + esc(U("flag")) + "</h4>" + F("flag", k.flag, "p") + fmHtml + "</div>";
+    r += "</div>";
+    var jn = isAdded ? null : G.jn && G.jn["k~" + c.id + "~" + sl];
+    if (jn) {
+      var jl2 = G.jurisdictions.filter(function (j) { return jn[j.id] && (state.jur === "ALL" || state.jur === j.id); });
+      if (jl2.length) r += '<div class="jn"><h4>' + esc(V("jn")) + "</h4>" + jl2.map(function (j) { return '<div><span class="jchip">' + esc(j[lang]) + "</span>" + ed(base + "jn-" + j.id + "~" + lang, L(jn[j.id])) + "</div>"; }).join("") + "</div>";
+    }
+    if (modelVal || state.editing) r += '<div class="model' + (modelVal ? "" : " placeholder") + '"><h4>' + esc(U("model")) + "</h4>" + F("model", k.model || { ko: "", en: "" }, "p") + "</div>";
+    return r + "</div></div>";
+  }
+
+  function clauseMatches(c, k, isAdded) {
+    var q = state.q.toLowerCase();
+    if (!q) return true;
+    var parts;
+    if (isAdded) parts = [k.name, k.def, k.must, k.flag, k.model].map(function (o) { return o ? (o.ko || "") + " " + (o.en || "") : ""; });
+    else {
+      var base = "k~" + c.id + "~" + slug(k.en) + "~";
+      parts = [k.ko, k.en];
+      ["def", "must", "flag", "model"].forEach(function (f) { ["ko", "en"].forEach(function (l) { parts.push(ev(base + f + "~" + l, k[f] ? k[f][l] : "")); }); });
+    }
+    return parts.join(" ").toLowerCase().indexOf(q) >= 0;
+  }
+
+  function renderContracts() {
+    var lang = state.lang, html = [], toc = [], lastGroup = null, any = false;
+    contracts.forEach(function (c) {
+      var jl = G.jurOf[c.id] || ["ALL"];
+      if (!jurVisible(jl)) return;
+      var addedHere = Object.keys(added).map(function (id) { return { id: id, d: added[id] }; }).filter(function (x) { return x.d.cid === c.id; })
+        .sort(function (a, b) { return String(a.d.at || "").localeCompare(String(b.d.at || "")); });
+      var titleTxt = ev("c~" + c.id + "~title~" + lang, L(c.title));
+      var titleHit = state.q && titleTxt.toLowerCase().indexOf(state.q.toLowerCase()) >= 0;
+      var cl = c.clauses.filter(function (k) { return titleHit || clauseMatches(c, k, false); });
+      var ad = addedHere.filter(function (x) { return titleHit || clauseMatches(c, x.d, true); });
+      if (!cl.length && !ad.length && !(state.editing && !state.q)) return;
+      any = true;
+      var g = G.groupOf[c.id];
+      if (g !== lastGroup) { toc.push('<li class="grp">' + esc(X[lang].grp[g]) + "</li>"); lastGroup = g; }
+      toc.push('<li><a href="#' + c.id + '"><span class="code">' + esc(c.code) + "</span><span>" + esc(titleTxt) + "</span></a></li>");
+      var req = c.clauses.filter(function (k) { return ev("k~" + c.id + "~" + slug(k.en) + "~l", k.l) === "R"; }).length;
+      var chips = "";
+      resetAbbr();
+      var h = '<section class="contract" id="' + c.id + '"><div class="c-head"><div class="c-title"><span class="code">' + esc(c.code) + "</span>" + ed("c~" + c.id + "~title~" + lang, L(c.title), "h2", "", true) + chips + '<span class="count">' + (c.clauses.length + addedHere.length) + " " + esc(U("clauses")) + " · " + esc(U("lvlR")) + " " + req + "</span></div>";
+      var otherT = lang === "ko" ? c.title.en : c.title.ko;
+      if (otherT !== L(c.title)) h += '<div class="c-title" style="margin-top:-6px"><span class="alt">' + esc(otherT) + "</span></div>";
+      h += ed("c~" + c.id + "~summary~" + lang, L(c.summary), "p", "c-sum");
+      h += '<dl class="facts"><div><dt>' + esc(U("when")) + "</dt><dd>" + ed("c~" + c.id + "~when~" + lang, L(c.when)) + "</dd></div><div><dt>" + esc(U("parties")) + "</dt><dd>" + ed("c~" + c.id + "~parties~" + lang, L(c.parties)) + "</dd></div><div><dt>" + esc(U("law")) + "</dt><dd>" + ed("c~" + c.id + "~law~" + lang, L(c.law)) + fns(G.refsOf["c~" + c.id]) + "</dd></div></dl>" + (G.files[c.id] ? '<div><span class="count" style="margin-right:8px">' + esc(V("colFile")) + "</span>" + dlButtons(c.id) + "</div>" : "") + "</div>";
+      h += cl.map(function (k) { return clauseRow(c, k, {}); }).join("");
+      h += ad.map(function (x) { return clauseRow(c, x.d, { addedId: x.id }); }).join("");
+      if (db) h += '<div class="add-row"><button type="button" data-act="add-clause" data-cid="' + c.id + '">' + esc(V("addClause")) + "</button></div>";
+      html.push(h + "</section>");
+    });
+    var box = document.getElementById("contracts");
+    box.innerHTML = html.join("");
+    box.classList.toggle("compact", state.compact && !state.editing);
+    var em = document.getElementById("empty");
+    em.hidden = any; em.textContent = U("noResult");
+    var SHORT = { nda: "NDA", ts: "텀시트", loi: "LOI", rcps: "SSA", sha: "SHA", "spa-kr": "SPA" };
+    var nav = [["assumptions", TV("assume", U("assumptions"))], ["jurisdictions", TV("jur", V("jur"))], ["matrix", TV("flow", V("flow"))], "|"]
+      .concat(contracts.map(function (c) { return [c.id, SHORT[c.id] || c.code]; }))
+      .concat(["|", ["closing", TV("closing", U("closing"))], ["refs", TV("refs", V("refs"))]]);
+    document.getElementById("secnav").innerHTML = nav.map(function (n) {
+      return n === "|" ? '<span class="sep"></span>' : '<a href="#' + n[0] + '" data-sec="' + n[0] + '">' + esc(n[1]) + "</a>";
+    }).join("");
+  }
+
+  function numberRefs() {
+    var n = 0; refNum = {};
+    G.jurisdictions.forEach(function (j) { G.refs.forEach(function (r) { if (r.j === j.id && usedRefs[r.id]) refNum[r.id] = ++n; }); });
+  }
+  numberRefs();
+  function renderAll() {
+    renderStatic(); renderAssumptions(); renderJur(); renderMatrix(); renderContracts(); renderClosing(); renderRefs();
+    document.querySelectorAll("[data-ek],[data-ak]").forEach(function (el) {
+      if (state.editing) { el.setAttribute("contenteditable", "plaintext-only"); if (el.contentEditable !== "plaintext-only") el.setAttribute("contenteditable", "true"); el.setAttribute("spellcheck", "false"); }
+      else el.removeAttribute("contenteditable");
+    });
+    pendingRender = false;
+  }
+  function safeRender() {
+    var a = document.activeElement;
+    if (a && (a.hasAttribute("data-ek") || a.hasAttribute("data-ak"))) { pendingRender = true; return; }
+    renderAll();
+  }
+
+  /* ---------- Download sample forms ---------- */
+  var dlNs = null;
+  var FILE2CID = {}; Object.keys(G.files).forEach(function (cid) { FILE2CID[G.files[cid].ko] = [cid, "ko"]; FILE2CID[G.files[cid].en] = [cid, "en"]; });
+  var VIEW = {
+    clauses: function (cid) {
+      var c = contracts.filter(function (x) { return x.id === cid; })[0]; if (!c) return [];
+      var out = c.clauses.map(function (k) {
+        var sl = slug(k.en), base = "k~" + cid + "~" + sl + "~", key = base.slice(0, -1);
+        var jn = G.jn[key] || {};
+        var fmDef = G.flagMore && G.flagMore[key] ? G.flagMore[key].join("\n") : "";
+        return {
+          slug: sl, hidden: !!edits[base + "hidden"], level: ev(base + "l", k.l),
+          name: ev(base + "name~ko", k.ko), nameEn: k.en,
+          def: ev(base + "def~ko", k.def ? k.def.ko : ""), must: ev(base + "must~ko", k.must ? k.must.ko : ""),
+          enTerms: ev(base + "enterms~en", G.enTerms[key] ? G.enTerms[key].join(" · ") : ""),
+          flag: ev(base + "flag~ko", k.flag ? k.flag.ko : ""),
+          flagMore: ev(base + "flagmore~ko", fmDef).split(/\n+/).filter(Boolean),
+          jn: G.jurisdictions.filter(function (j) { return jn[j.id]; }).map(function (j) { return [j.id, ev(base + "jn-" + j.id + "~ko", jn[j.id].ko)]; }),
+          model: ev(base + "model~ko", k.model ? k.model.ko : "")
+        };
+      });
+      Object.keys(added).filter(function (id) { return added[id].cid === cid; }).sort(function (a, b) { return String(added[a].at || "").localeCompare(String(added[b].at || "")); }).forEach(function (id) {
+        var d = added[id], g = function (f) { return (d[f] && d[f].ko) || ""; };
+        out.push({ slug: null, hidden: false, level: d.l || "R", name: g("name"), nameEn: (d.name && d.name.en) || "", def: g("def"), must: g("must"), enTerms: (d.must && d.must.en) || "", flag: g("flag"), flagMore: [], jn: [], model: g("model") });
+      });
+      return out;
+    }
+  };
+  function download(btn) {
+    var file = btn.getAttribute("data-dl");
+    var msg = btn.parentNode.querySelector(".dl-msg");
+    if (msg) msg.textContent = "";
+    var map = FILE2CID[file];
+    var gen = (map && window.docx && G.buildDocx) ? G.buildDocx(map[0], map[1], VIEW).catch(function () { return null; }) : Promise.resolve(null);
+    var get = gen.then(function (blob) { if (blob) return blob; return new Promise(function (res, rej) {
+      var b64 = window.GUIDE_FILES && window.GUIDE_FILES[file];
+      if (!b64) return rej(new Error("missing"));
+      var bin = atob(b64), u = new Uint8Array(bin.length);
+      for (var i = 0; i < bin.length; i++) u[i] = bin.charCodeAt(i);
+      res(new Blob([u], { type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document" }));
+    }); });
+    var ns = dlNs ? Promise.resolve(dlNs) : (window.claude && window.claude.use ? window.claude.use("downloads") : Promise.resolve(null));
+    Promise.all([get, ns]).then(function (res) {
+      dlNs = res[1];
+      var name = G.fileNames[file] || file;
+      if (dlNs) return dlNs.save({ filename: name, data: res[0] });
+      var a = document.createElement("a");
+      a.href = URL.createObjectURL(res[0]); a.download = name; document.body.appendChild(a); a.click(); a.remove();
+    }).catch(function (e) {
+      if (!msg) return;
+      msg.textContent = e && e.code === "declined" ? V("dlDeclined") : V("dlFail");
+    });
+  }
+
+  /* ---------- Saving ---------- */
+  var saveEl = document.getElementById("save-state"), saveTimer;
+  function status(t) { saveEl.textContent = t; clearTimeout(saveTimer); if (t === V("saved")) saveTimer = setTimeout(function () { saveEl.textContent = ""; }, 2500); }
+  function queue(key, fn) {
+    var p = (writeChain[key] || Promise.resolve()).then(fn);
+    writeChain[key] = p.catch(function () {});
+    status(V("saving"));
+    p.then(function () { status(V("saved")); }, function (e) { console.warn(e); status(V("saveErr")); });
+    return p;
+  }
+  function setEdit(key, val, def) {
+    if (!db) return;
+    var ref = db.collection("edits").doc(key);
+    if (val === def) {
+      if (!edits[key]) return;
+      delete edits[key];
+      return queue(key, function () { return ref.delete(); });
+    }
+    edits[key] = { v: val, by: me || "", at: new Date().toISOString() };
+    var body = { v: val, by: me || "", at: edits[key].at };
+    return queue(key, function () { return ref.set(body); });
+  }
+  function setAdded(id, path, val) {
+    if (!db || !added[id]) return;
+    var parts = path.split("."), patch = {};
+    if (parts.length === 2) { patch[parts[0]] = {}; patch[parts[0]][parts[1]] = val; added[id][parts[0]] = Object.assign({}, added[id][parts[0]] || {}, patch[parts[0]]); }
+    else { patch[path] = val; added[id][path] = val; }
+    return queue("added-" + id, function () { return db.collection("added").doc(id).update(patch); });
+  }
+
+  document.addEventListener("focusout", function (e) {
+    var el = e.target;
+    if (!state.editing || !el || !el.getAttribute) return;
+    var text = (el.innerText || "").replace(/ /g, " ").replace(/\n{3,}/g, "\n\n").trim();
+    if (el.hasAttribute("data-ek")) {
+      var key = el.getAttribute("data-ek"), def = el.getAttribute("data-def");
+      var cur = ev(key, def);
+      if (text !== cur) setEdit(key, text, def);
+    } else if (el.hasAttribute("data-ak")) {
+      var p = el.getAttribute("data-ak").split("|"), id = p[0], path = p[1];
+      var curA = path.split(".").reduce(function (o, k) { return o ? o[k] : ""; }, added[id]) || "";
+      if (text !== curA) setAdded(id, path, text);
+    }
+    setTimeout(function () { if (pendingRender) safeRender(); }, 0);
+  });
+  document.addEventListener("keydown", function (e) {
+    var el = e.target;
+    if (state.editing && el && el.getAttribute && (el.hasAttribute("data-ek") || el.hasAttribute("data-ak")) && e.key === "Escape") el.blur();
+  });
+
+  function toTop(e) { e.preventDefault(); window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }); }
+  function moneyBurst(ev) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    var r = document.getElementById("logo").getBoundingClientRect();
+    var x0 = ev && ev.clientX ? ev.clientX : r.left + r.width / 2, y0 = ev && ev.clientY ? ev.clientY : r.top + r.height / 2;
+    var layer = document.createElement("div"); layer.className = "money-layer"; document.body.appendChild(layer);
+    var W = window.innerWidth, H = window.innerHeight, n = W < 600 ? 26 : 42, left = n;
+    for (var i = 0; i < n; i++) {
+      var el = document.createElement("div"), kind = Math.random();
+      if (kind < 0.62) { el.className = "money bill" + (Math.random() < 0.3 ? " b2" : ""); el.textContent = "₩"; }
+      else { el.className = "money coin"; el.textContent = "₩"; }
+      layer.appendChild(el);
+      var ang = (-Math.PI / 2) + (Math.random() - 0.35) * 1.9;          // mostly up and to the right
+      var sp = 160 + Math.random() * 260;
+      var vx = Math.cos(ang) * sp, peakY = y0 + Math.sin(ang) * sp;
+      var endX = x0 + vx * 1.8 + (Math.random() - 0.5) * 220, endY = H + 60;
+      var rot = (Math.random() - 0.5) * 1080, dur = 1600 + Math.random() * 1300;
+      var sway = (Math.random() - 0.5) * 120;
+      var k = [
+        { transform: "translate(" + x0 + "px," + y0 + "px) rotate(0deg) scale(.4)", opacity: 0 },
+        { transform: "translate(" + (x0 + vx * 0.6) + "px," + peakY + "px) rotate(" + rot * 0.3 + "deg) scale(1)", opacity: 1, offset: 0.22 },
+        { transform: "translate(" + (x0 + vx * 1.2 + sway) + "px," + (peakY + (endY - peakY) * 0.45) + "px) rotate(" + rot * 0.65 + "deg) rotateX(60deg)", opacity: 1, offset: 0.6 },
+        { transform: "translate(" + endX + "px," + endY + "px) rotate(" + rot + "deg) rotateX(0deg)", opacity: 0.9 }
+      ];
+      var a = el.animate(k, { duration: dur, delay: Math.random() * 180, easing: "cubic-bezier(.25,.6,.45,1)", fill: "forwards" });
+      a.onfinish = function () { if (--left <= 0 && layer.parentNode) layer.parentNode.removeChild(layer); };
+    }
+    setTimeout(function () { if (layer.parentNode) layer.parentNode.removeChild(layer); }, 4000);
+  }
+  document.getElementById("logo").addEventListener("click", function (e) { toTop(e); moneyBurst(e); });
+  document.getElementById("t-title").addEventListener("click", function (e) { if (!state.editing) toTop(e); });
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest ? e.target.closest("button") : null;
+    if (!b) return;
+    if (b.hasAttribute("data-lang")) {
+      state.lang = b.getAttribute("data-lang");
+      try { localStorage.setItem("cvc-guide-lang", state.lang); } catch (err) {}
+      renderAll(); return;
+    }
+    if (b.hasAttribute("data-jur")) { state.jur = b.getAttribute("data-jur"); renderAll(); return; }
+    if (b.hasAttribute("data-dl")) { download(b); return; }
+    var act = b.getAttribute("data-act");
+    if (!act || !state.editing) return;
+    if (act === "level") {
+      var order = ["R", "C", "O"];
+      if (b.hasAttribute("data-aid")) {
+        var id = b.getAttribute("data-aid"), curL = added[id].l || "R";
+        var nx = order[(order.indexOf(curL) + 1) % 3];
+        setAdded(id, "l", nx);
+      } else {
+        var key = b.getAttribute("data-key"), def = b.getAttribute("data-def");
+        var nxt = order[(order.indexOf(ev(key, def)) + 1) % 3];
+        setEdit(key, nxt, def);
+      }
+      renderAll();
+    } else if (act === "toggle-hide") {
+      var hk = b.getAttribute("data-base") + "hidden";
+      if (edits[hk]) setEdit(hk, "", ""); else setEdit(hk, "1", "");
+      renderAll();
+    } else if (act === "reset") {
+      var base = b.getAttribute("data-base");
+      Object.keys(edits).filter(function (k) { return k.indexOf(base) === 0; }).forEach(function (k) {
+        delete edits[k];
+        queue(k, function () { return db.collection("edits").doc(k).delete(); });
+      });
+      renderAll();
+    } else if (act === "add-clause") {
+      var cid = b.getAttribute("data-cid");
+      var ref = db.collection("added").doc();
+      var doc = { cid: cid, l: "R", name: { ko: X.ko.newName, en: X.en.newName }, def: { ko: "", en: "" }, must: { ko: "", en: "" }, flag: { ko: "", en: "" }, model: { ko: "", en: "" }, by: me || "", at: new Date().toISOString() };
+      added[ref.id] = doc;
+      queue("added-" + ref.id, function () { return ref.set(doc); });
+      renderAll();
+    } else if (act === "add-closing") {
+      var cref = db.collection("added").doc();
+      var cdoc = { cid: "__closing", cat: { ko: "분류", en: "" }, item: { ko: "새 항목", en: "" }, deal: { ko: "공통", en: "" }, who: { ko: "", en: "" }, note: { ko: "", en: "" }, by: me || "", at: new Date().toISOString() };
+      added[cref.id] = cdoc;
+      queue("added-" + cref.id, function () { return cref.set(cdoc); });
+      renderAll();
+    } else if (act === "del-added") {
+      var aid = b.getAttribute("data-aid");
+      delete added[aid];
+      queue("added-" + aid, function () { return db.collection("added").doc(aid).delete(); });
+      renderAll();
+    }
+  });
+  document.getElementById("toggle-compact").addEventListener("click", function () { state.compact = !state.compact; renderAll(); });
+  document.getElementById("toggle-edit").addEventListener("click", function () { state.editing = !state.editing; if (state.editing) state.compact = false; renderAll(); });
+  var timer;
+  document.getElementById("q").addEventListener("input", function (e) {
+    clearTimeout(timer);
+    var v = e.target.value.trim();
+    timer = setTimeout(function () { state.q = v; renderAll(); buildResults(); }, 150);
+  });
+
+  /* ---------- Search result locations ---------- */
+  var results = [], curIdx = -1;
+  var panel = document.getElementById("sr-panel"), srNav = document.getElementById("sr-nav");
+  function fieldLabel(m) {
+    var box = m.closest(".box, .jn, .model, .en-sub");
+    if (box) { var h = box.querySelector("h4, .en-lab"); return h ? h.textContent : ""; }
+    if (m.closest(".def")) return "정의";
+    if (m.closest(".c-sum")) return "개요";
+    if (m.closest(".nm")) return "조항명";
+    if (m.closest(".term")) return "영문 조항명";
+    if (m.closest(".facts")) { var dd = m.closest(".facts > div"); var dt = dd && dd.querySelector("dt"); return dt ? dt.textContent : ""; }
+    if (m.closest(".act")) return "조치";
+    return "";
+  }
+  function locate(m) {
+    var parts = [];
+    var sec = m.closest("section");
+    if (sec) { var h2 = sec.querySelector("h2"); if (h2) parts.push(h2.textContent.trim()); }
+    var cl = m.closest(".clause");
+    if (cl) { var nm = cl.querySelector(".nm"); if (nm) parts.push(nm.textContent.trim()); }
+    var card = m.closest(".card");
+    if (card) { var h3 = card.querySelector("h3 span:last-child"); if (h3) parts.push(h3.textContent.trim().replace(/\[\d+\]/g, "")); }
+    var tr = m.closest("tr");
+    if (tr && !cl) { var td = tr.querySelector("td"); if (td) parts.push(td.textContent.trim().slice(0, 30)); }
+    var f = fieldLabel(m); if (f && parts[parts.length - 1] !== f) parts.push(f);
+    return parts.filter(Boolean).join(" › ");
+  }
+  function snippet(m) {
+    var host = m.closest("p, span[data-ek], td, h2, h3, .nm") || m.parentNode;
+    var text = host.textContent.replace(/\s+/g, " ");
+    var word = m.textContent, i = text.toLowerCase().indexOf(word.toLowerCase());
+    if (i < 0) return esc(text.slice(0, 80));
+    var a = Math.max(0, i - 28), b = Math.min(text.length, i + word.length + 40);
+    return (a > 0 ? "…" : "") + esc(text.slice(a, i)) + "<b>" + esc(text.slice(i, i + word.length)) + "</b>" + esc(text.slice(i + word.length, b)) + (b < text.length ? "…" : "");
+  }
+  function buildResults() {
+    results = []; curIdx = -1;
+    if (!state.q || state.editing) { panel.hidden = true; srNav.hidden = true; return; }
+    var seen = new Set();
+    document.querySelectorAll("main mark").forEach(function (m) {
+      var host = m.closest("p, span[data-ek], td, h2, h3, .nm, .term") || m.parentNode;
+      if (seen.has(host)) return;
+      seen.add(host);
+      results.push({ el: m, path: locate(m), snip: snippet(m) });
+    });
+    srNav.hidden = !results.length;
+    document.getElementById("sr-count").textContent = results.length ? "0/" + results.length : "";
+    var h = '<div class="sr-head"><span>“' + esc(state.q) + '” ' + results.length + "곳</span><button type=\"button\" id=\"sr-close\">닫기</button></div>";
+    if (!results.length) h += '<div class="sr-empty">' + esc(U("noResult")) + "</div>";
+    h += results.slice(0, 60).map(function (r, i) {
+      return '<button type="button" class="sr-item" data-sr="' + i + '"><span class="sr-path">' + esc(r.path) + '</span><span class="sr-snip">' + r.snip + "</span></button>";
+    }).join("");
+    if (results.length > 60) h += '<div class="sr-empty">상위 60곳만 표시합니다. 검색어를 더 구체적으로 입력하세요.</div>';
+    panel.innerHTML = h;
+    placePanel();
+    panel.hidden = false;
+  }
+  function placePanel() {
+    if (window.innerWidth <= 680) {
+      var r = document.getElementById("search-box").getBoundingClientRect();
+      panel.style.position = "fixed"; panel.style.left = "10px"; panel.style.right = "10px"; panel.style.top = (r.bottom + 6) + "px";
+    } else { panel.style.position = ""; panel.style.left = ""; panel.style.right = ""; panel.style.top = ""; }
+  }
+  function goTo(i) {
+    if (!results.length) return;
+    curIdx = (i + results.length) % results.length;
+    document.querySelectorAll("mark.cur").forEach(function (x) { x.classList.remove("cur"); });
+    var r = results[curIdx];
+    r.el.classList.add("cur");
+    var top = r.el.getBoundingClientRect().top + window.scrollY - 170;
+    window.scrollTo({ top: top, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+    document.getElementById("sr-count").textContent = (curIdx + 1) + "/" + results.length;
+    panel.querySelectorAll(".sr-item").forEach(function (b) { b.classList.toggle("on", +b.getAttribute("data-sr") === curIdx); });
+  }
+  panel.addEventListener("click", function (e) {
+    var b = e.target.closest("button"); if (!b) return;
+    if (b.id === "sr-close") { panel.hidden = true; return; }
+    if (b.hasAttribute("data-sr")) { goTo(+b.getAttribute("data-sr")); panel.hidden = true; }
+  });
+  document.getElementById("sr-prev").addEventListener("click", function () { goTo(curIdx - 1); });
+  document.getElementById("sr-next").addEventListener("click", function () { goTo(curIdx + 1); });
+  document.getElementById("q").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") { e.preventDefault(); clearTimeout(timer); state.q = e.target.value.trim(); if (!results.length || panel.hidden && curIdx < 0) { renderAll(); buildResults(); } goTo(e.shiftKey ? curIdx - 1 : curIdx + 1); panel.hidden = true; }
+    if (e.key === "Escape") panel.hidden = true;
+  });
+  document.getElementById("q").addEventListener("focus", function () { if (state.q && results.length) { placePanel(); panel.hidden = false; } });
+  document.addEventListener("click", function (e) { if (!e.target.closest("#search-box")) panel.hidden = true; });
+
+  renderAll();
+  var spyT;
+  window.addEventListener("scroll", function () {
+    clearTimeout(spyT);
+    spyT = setTimeout(function () {
+      var links = document.querySelectorAll("#secnav a"), cur = null, y = 170;
+      links.forEach(function (a) { var el = document.getElementById(a.getAttribute("data-sec")); if (el && el.getBoundingClientRect().top <= y) cur = a; });
+      links.forEach(function (a) { a.classList.toggle("on", a === cur); });
+    }, 60);
+  }, { passive: true });
+
+  /* ---------- Shared store ---------- */
+  if (window.claude && typeof window.claude.use === "function") {
+    Promise.all([window.claude.use("db"), window.claude.use("user")]).then(function (res) {
+      db = res[0];
+      var user = res[1];
+      if (!db) return;
+      var slow = setTimeout(function () { status(V("loadSlow")); }, 10000);
+      var gotE = false, gotA = false;
+      db.collection("edits").onSnapshot(function (snap) {
+        var m = {};
+        snap.docs.forEach(function (d) { if (d.exists) { var x = d.data(); if (x && typeof x.v !== "undefined") m[d.id] = { v: x.v, by: x.by, at: x.at }; } });
+        edits = m;
+        if (!snap.metadata.fromCache) { gotE = true; if (gotA) { clearTimeout(slow); if (saveEl.textContent === V("loadSlow")) status(""); } }
+        safeRender();
+      }, function (err) { clearTimeout(slow); console.warn(err); });
+      db.collection("added").onSnapshot(function (snap) {
+        var m = {};
+        snap.docs.forEach(function (d) { if (d.exists) m[d.id] = JSON.parse(JSON.stringify(d.data())); });
+        added = m;
+        if (!snap.metadata.fromCache) { gotA = true; if (gotE) clearTimeout(slow); }
+        safeRender();
+      }, function (err) { console.warn(err); });
+      Promise.resolve(user ? user.canEdit() : null).then(function (can) {
+        var btn = document.getElementById("toggle-edit");
+        btn.hidden = can === false;
+      }).catch(function () { document.getElementById("toggle-edit").hidden = false; });
+      if (user && user.id) Promise.resolve(user.id()).then(function (id) { me = id; }).catch(function () {});
+      renderAll();
+    }).catch(function () {});
+  }
+})();
+</script>
+</body>
+</html>
